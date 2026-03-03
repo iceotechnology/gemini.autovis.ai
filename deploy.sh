@@ -50,7 +50,7 @@ mkdir -p logs
 # 5. Start or reload PM2
 echo -e "${BLUE}🔄 Starting PM2...${NC}"
 pm2 delete gemini-watermark-remover 2>/dev/null || true
-pm2 start ./node_modules/.bin/serve --name gemini-watermark-remover -- dist -l 3006 --no-clipboard
+pm2 start server.cjs --name gemini-watermark-remover
 echo -e "${GREEN}✅ PM2 started${NC}"
 
 # 6. Save PM2 process list
