@@ -2,9 +2,9 @@ module.exports = {
     apps: [
         {
             name: "gemini-watermark-remover",
-            script: "npx",
-            args: "serve dist -l 3006 --no-clipboard",
-            cwd: "./",
+            script: "./node_modules/.bin/serve",
+            args: "dist -l 3006 --no-clipboard",
+            cwd: "/opt/ai/gemini.autovis.ai",
             env: {
                 NODE_ENV: "production",
             },
