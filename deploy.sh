@@ -29,7 +29,7 @@ echo -e "${GREEN}✅ Dependencies installed${NC}"
 # 3. Build production
 echo -e "${BLUE}🔨 Building production...${NC}"
 if [ -d "dist" ]; then
-  rm -rf dist
+ sudo rm -rf dist
 fi
 
 if command -v pnpm &> /dev/null; then
@@ -40,7 +40,7 @@ fi
 echo -e "${GREEN}✅ Build complete${NC}"
 
 # 4. Create logs dir
-mkdir -p logs
+sudo mkdir -p logs
 
 # 5. Start or reload PM2
 echo -e "${BLUE}🔄 Starting PM2...${NC}"
