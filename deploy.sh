@@ -16,6 +16,11 @@ echo ""
 echo -e "${BLUE}🚀 Deploying gemini.autovis.ai...${NC}"
 echo ""
 
+# 1. Fix permissions
+echo -e "${BLUE}🔧 Fixing permissions...${NC}"
+git config --global --add safe.directory /opt/ai/gemini.autovis.ai
+sudo chown -R $(whoami):$(whoami) /opt/ai/gemini.autovis.ai
+echo -e "${GREEN}✅ Permissions fixed${NC}"
 
 # 2. Install dependencies
 echo -e "${BLUE}📦 Installing dependencies...${NC}"
@@ -29,7 +34,7 @@ echo -e "${GREEN}✅ Dependencies installed${NC}"
 # 3. Build production
 echo -e "${BLUE}🔨 Building production...${NC}"
 if [ -d "dist" ]; then
- sudo rm -rf dist
+  rm -rf dist
 fi
 
 if command -v pnpm &> /dev/null; then
@@ -40,7 +45,7 @@ fi
 echo -e "${GREEN}✅ Build complete${NC}"
 
 # 4. Create logs dir
-sudo mkdir -p logs
+mkdir -p logs
 
 # 5. Start or reload PM2
 echo -e "${BLUE}🔄 Starting PM2...${NC}"
