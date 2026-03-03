@@ -49,13 +49,9 @@ mkdir -p logs
 
 # 5. Start or reload PM2
 echo -e "${BLUE}🔄 Starting PM2...${NC}"
-if pm2 describe gemini-watermark-remover > /dev/null 2>&1; then
-  pm2 reload gemini-watermark-remover
-  echo -e "${GREEN}✅ PM2 reloaded${NC}"
-else
-  pm2 start ecosystem.config.cjs -f
-  echo -e "${GREEN}✅ PM2 started${NC}"
-fi
+pm2 delete gemini-watermark-remover 2>/dev/null || true
+pm2 start ./node_modules/.bin/serve --name gemini-watermark-remover -- dist -l 3006 --no-clipboard
+echo -e "${GREEN}✅ PM2 started${NC}"
 
 # 6. Save PM2 process list
 pm2 save
