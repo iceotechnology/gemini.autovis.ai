@@ -16,10 +16,6 @@ echo ""
 echo -e "${BLUE}🚀 Deploying gemini.autovis.ai...${NC}"
 echo ""
 
-# 1. Pull latest code
-echo -e "${BLUE}📥 Pulling latest code...${NC}"
-git pull origin main
-echo -e "${GREEN}✅ Code updated${NC}"
 
 # 2. Install dependencies
 echo -e "${BLUE}📦 Installing dependencies...${NC}"
