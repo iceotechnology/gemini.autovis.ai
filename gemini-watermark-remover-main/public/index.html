@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Watermark Remover - Công cụ xoá watermark không giảm chất lượng</title>
+  <meta name="description"
+    content="Công cụ AI chuyên nghiệp giúp xoá mờ logo Gemini và watermark từ hình ảnh một cách tự động, giữ nguyên chất lượng gốc. Miễn phí, an toàn và bảo mật.">
+  <meta name="keywords"
+    content="Gemini watermark remover, xoá logo gemini, xoá watermark gemini bằng ai, công cụ xoá logo ảnh, remove gemini watermark ai, autovis gemini remover" />
+  <link rel="icon" href="https://upload.shortspin.ai/data/a2cad3bc-29c3-446b-8e4d-d9e743736505.png">
+  <link rel="canonical" href="https://autovis.ai/gemini-remover" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://autovis.ai/gemini-remover">
+  <meta property="og:title" content="Gemini Watermark Remover - Công cụ xoá watermark không giảm chất lượng">
+  <meta property="og:description" content="Tự động xoá mờ logo Gemini và watermark từ ảnh với công nghệ AI tiên tiến từ Autovis.">
+  <meta property="og:image" content="https://upload.shortspin.ai/data/c208da3b-8bf6-4b49-8330-7b43f6288f1d.png">
+
+  <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://autovis.ai/gemini-remover">
+  <meta property="twitter:title" content="Gemini Watermark Remover - Công cụ xoá watermark không giảm chất lượng">
+  <meta property="twitter:description" content="Tự động xoá mờ logo Gemini và watermark từ ảnh với công nghệ AI tiên tiến từ Autovis.">
+  <meta property="twitter:image" content="https://upload.shortspin.ai/data/c208da3b-8bf6-4b49-8330-7b43f6288f1d.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#5E5CE6',
+            'primary-hover': '#4C4AD1',
+            dark: '#0F172A',
+            'hero-start': '#1A1844',
+            'hero-end': '#2D2B69',
+            'bg-light': '#F8FAFC',
+          },
+          boxShadow: {
+            'card': '0 0 50px rgba(0,0,0,0.03)',
+            'btn-premium': '0 4px 14px 0 rgba(94, 92, 230, 0.39)',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      background-color: #F9FAFB;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1A1A3A 0%, #201E50 50%, #292765 100%);
+    }
+
+    .drop-shadow-glow {
+      filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.3));
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .loading-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .grid-bg {
+      background-image: radial-gradient(#e5e7eb 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+    }
+
+    .medium-zoom-overlay,
+    .medium-zoom-image--opened {
+      z-index: 999;
+    }
+
+    .medium-zoom-overlay {
+      backdrop-filter: blur(8px);
+    }
+
+    /* Custom scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E2E8F0;
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #CBD5E1;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+
+        <header class="sticky top-0 z-50 bg-[#0B101B] border-b border-white/5 shadow-2xl">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="https://autovis.ai" class="block shrink-0">
+        <img src="https://upload.shortspin.ai/data/c208da3b-8bf6-4b49-8330-7b43f6288f1d.png" alt="Autovis - Nền tảng sáng tạo nội dung AI" title="Autovis"
+          class="h-11 w-auto">
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-10">
+        <a href="https://autovis.ai/ai-image-trends" target="_blank" class="text-white/90 hover:text-primary transition-colors text-[13px] font-bold">Tạo ảnh trends</a>
+        <a href="https://autovis.ai/video-analysis" target="_blank" class="text-white/90 hover:text-primary transition-colors text-[13px] font-bold">Tạo video Affiliate</a>
+        
+        <div class="relative flex items-center gap-2 group">
+          <span class="text-white/90 cursor-default text-[13px] font-bold">Xây kênh Affiliate</span>
+          <span class="bg-orange-600 text-white text-[9px] px-1.5 py-0.5 rounded flex items-center gap-1 font-bold">
+            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.55 11.23c-.24-.11-.49-.21-.75-.3-.21-.07-.42-.14-.64-.21a10.05 10.05 0 00-6.43 2.25c.18.25.39.48.61.69.21-.2.45-.37.7-.51.48-.26.96-.39 1.45-.39.63 0 1.25.21 1.78.61.42.31.75.72.97 1.21.2.44.29.93.26 1.43-.03.5-.18.98-.44 1.4-.38.61-1.02 1.05-1.77 1.2-.42.08-.85.12-1.28.1-.81-.03-1.6-.32-2.27-.85-.12-.1-.23-.2-.33-.3.41.33.89.56 1.42.66.41.07.82.08-1.23.03-.5-.07-.98-.26-1.39-.55-.38-.27-.69-.64-.89-1.07-.12-.26-.19-.53-.22-.81-.03-.28-.02-.56.03-.84.05-.28.14-.54.26-.8.24-.52.61-.98 1.08-1.31.42-.29.89-.47 1.4-.53.48-.06.97.01 1.44.18.38.14.73.34 1.04.59-.16-.3-.28-.61-.35-.93-.15-.71-.05-1.46.29-2.11.23-.44.57-.8.99-1.06.41-.26.88-.39 1.36-.39.69 0 1.35.26 1.86.73.08.07.15.15.22.23.23-.42.54-.78.91-1.08.33-.27.71-.48 1.13-.61.41-.13.85-.16 1.29-.1s.86.22 1.24.46c.33.21.61.48.83.8.19.28.31.59.35.92.04.33.02.66-.07.97-.13.43-.37.81-.69 1.11-.31.29-.69.49-1.12.59-.42.1-.85.11-1.28.02-.45-.09-.88-.28-1.24-.55.15.29.25.61.29.94.07.56.01 1.13-.18 1.66-.19.51-.51.96-.92 1.31-.41.35-.91.59-1.44.7-.54.11-1.1.1-1.63-.04a3.17 3.17 0 01-1.44-1c-.13-.15-.24-.31-.34-.48.27.13.56.2.86.21.37.01.73-.08 1.05-.26.29-.16.53-.39.7-.66.15-.24.22-.52.22-.8s-.07-.56-.22-.8c-.17-.27-.41-.5-.7-.66z"/></svg>
+            HOT
+          </span>
+        </div>
+
+        <div class="relative flex items-center gap-2 group">
+          <a href="https://autovis.ai/motion-control" target="_blank" class="text-white/90 hover:text-primary transition-colors text-[13px] font-bold">Sao chép chuyển động</a>
+          <span class="bg-orange-600 text-white text-[9px] px-1.5 py-0.5 rounded flex items-center gap-1 font-bold">
+            <svg class="w-2.5 h-10 w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.55 11.23c-.24-.11-.49-.21-.75-.3-.21-.07-.42-.14-.64-.21a10.05 10.05 0 00-6.43 2.25c.18.25.39.48.61.69.21-.2.45-.37.7-.51.48-.26.96-.39 1.45-.39.63 0 1.25.21 1.78.61.42.31.75.72.97 1.21.2.44.29.93.26 1.43-.03.5-.18.98-.44 1.4-.38.61-1.02 1.05-1.77 1.2-.42.08-.85.12-1.28.1-.81-.03-1.6-.32-2.27-.85-.12-.1-.23-.2-.33-.3.41.33.89.56 1.42.66.41.07.82.08-1.23.03-.5-.07-.98-.26-1.39-.55-.38-.27-.69-.64-.89-1.07-.12-.26-.19-.53-.22-.81-.03-.28-.02-.56.03-.84.05-.28.14-.54.26-.8.24-.52.61-.98 1.08-1.31.42-.29.89-.47 1.4-.53.48-.06.97.01 1.44.18.38.14.73.34 1.04.59-.16-.3-.28-.61-.35-.93-.15-.71-.05-1.46.29-2.11.23-.44.57-.8.99-1.06.41-.26.88-.39 1.36-.39.69 0 1.35.26 1.86.73.08.07.15.15.22.23.23-.42.54-.78.91-1.08.33-.27.71-.48 1.13-.61.41-.13.85-.16 1.29-.1s.86.22 1.24.46c.33.21.61.48.83.8.19.28.31.59.35.92.04.33.02.66-.07.97-.13.43-.37.81-.69 1.11-.31.29-.69.49-1.12.59-.42.1-.85.11-1.28.02-.45-.09-.88-.28-1.24-.55.15.29.25.61.29.94.07.56.01 1.13-.18 1.66-.19.51-.51.96-.92 1.31-.41.35-.91.59-1.44.7-.54.11-1.1.1-1.63-.04a3.17 3.17 0 01-1.44-1c-.13-.15-.24-.31-.34-.48.27.13.56.2.86.21.37.01.73-.08 1.05-.26.29-.16.53-.39.7-.66.15-.24.22-.52.22-.8s-.07-.56-.22-.8c-.17-.27-.41-.5-.7-.66z"/></svg>
+            HOT
+          </span>
+        </div>
+        <a href="https://autovis.ai/pricing" target="_blank" class="text-white/90 hover:text-primary transition-colors text-[13px] font-bold">Bảng giá</a>
+        <a href="https://help.autovis.ai/" target="_blank" class="text-white/90 hover:text-primary transition-colors text-[13px] font-bold">Hướng dẫn</a>
+      </nav>
+
+      <!-- Mobile Toggle -->
+      <button id="mobileMenuBtn" class="lg:hidden text-white/80 p-2 focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-[#0B101B] border-t border-white/5 py-6 px-4 space-y-4">
+      <a href="https://autovis.ai/ai-image-trends" target="_blank" class="block text-white/90 hover:text-primary text-base font-bold">Tạo ảnh trends</a>
+      <a href="https://autovis.ai/video-analysis" target="_blank" class="block text-white/90 hover:text-primary text-base font-bold">Tạo video Affiliate</a>
+      <div class="flex items-center gap-2">
+        <span class="text-white/90 text-base font-bold">Xây kênh Affiliate</span>
+        <span class="bg-orange-600 text-white text-[9px] px-1.5 py-0.5 rounded font-bold uppercase">HOT</span>
+      </div>
+      <a href="https://autovis.ai/motion-control" target="_blank" class="block text-white/90 hover:text-primary text-base font-bold">Sao chép chuyển động</a>
+      <a href="https://autovis.ai/pricing" target="_blank" class="block text-white/90 hover:text-primary text-base font-bold">Bảng giá</a>
+      <a href="https://help.autovis.ai/" target="_blank" class="block text-white/90 hover:text-primary text-base font-bold">Hướng dẫn</a>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-10 px-4 md:px-8 max-w-[1400px] mx-auto w-full pb-20">
+    <section class="hero-gradient rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-14 relative overflow-hidden shadow-2xl mb-12">
+      <div class="relative z-10 max-w-3xl">
+        <div class="flex gap-2 mb-6">
+          <span
+            class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-bold text-white/80 border border-white/5 uppercase tracking-wider flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3l1.5 5h5l-4 3 1.5 5-4-3-4 3 1.5-5-4-3h5z" />
+            </svg>
+            Original Pure
+          </span>
+          <span
+            class="px-3 py-1 bg-primary/40 backdrop-blur-md rounded-full text-[10px] font-bold text-white border border-white/20 uppercase tracking-wider flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            AI Inverse Blending
+          </span>
+        </div>
+
+        <h2 class="text-3xl md:text-6xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+          Xoá mờ logo Gemini bằng AI
+        </h2>
+
+        <p class="text-lg text-white/60 font-medium mb-10 max-w-xl leading-relaxed">
+          Nền tảng xử lý ảnh AI chuyên nghiệp, tự động loại bỏ watermark nhưng vẫn giữ nguyên độ phân giải và chất lượng
+          gốc của bạn.
+        </p>
+
+        <div class="flex items-center gap-6">
+          <div class="flex gap-1 text-yellow-400">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+          </div>
+          <div class="h-4 w-px bg-white/20"></div>
+          <span class="text-white/80 font-bold text-sm">10,000+ ảnh đã xử lý</span>
+        </div>
+      </div>
+
+      <div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/20 rounded-full blur-[100px]"></div>
+      <div class="absolute right-20 bottom-10 w-4 h-4 bg-primary rotate-45 animate-pulse"></div>
+      <div class="absolute right-40 top-20 w-3 h-3 bg-white/20 rounded-full"></div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mb-20">
+
+      <div class="bg-white rounded-[2rem] p-8 shadow-card border border-gray-100/50">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+              </path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 leading-none mb-1">1. Ảnh gốc (Original)</h3>
+            <span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full uppercase">Ảnh càng
+              nét kết quả càng đẹp</span>
+          </div>
+        </div>
+
+        <div id="uploadArea"
+          class="group relative aspect-[4/3] bg-gray-50 border-2 border-dashed border-gray-200 rounded-[1.5rem] flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 hover:bg-white transition-all overflow-hidden grid-bg">
+          <div class="relative z-10 flex flex-col items-center text-center p-6">
+            <div
+              class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform mb-6">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M12 4v16m8-8H4" stroke-width="2.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Tải ảnh lên</h4>
+            <p class="text-xs text-gray-500 max-w-[240px] leading-relaxed">
+              Chọn hoặc kéo thả ảnh muốn loại bỏ watermark vào đây. Hỗ trợ JPG, PNG (Tối đa 20MB).
+            </p>
+          </div>
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
+        </div>
+
+        <div id="statusMessage" class="mt-4 text-sm font-medium text-center min-h-[1.5rem]"></div>
+      </div>
+
+      <div class="bg-white rounded-[2rem] p-8 shadow-card border border-gray-100/50">
+        <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                </path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 leading-none mb-1">2. Kết quả xử lý</h3>
+              <span class="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full uppercase">Hoàn
+                hảo đến từng điểm ảnh</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="singlePreview" class="relative" style="display: none;">
+          <div class="space-y-6">
+            <div class="relative group">
+              <div
+                class="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full z-10 border border-white/10">
+                Ảnh gốc</div>
+              <div
+                class="aspect-video bg-gray-100 rounded-[1.5rem] overflow-hidden flex items-center justify-center border border-gray-100">
+                <img id="originalImage" class="max-w-full max-h-full object-contain" data-zoomable />
+              </div>
+              <div id="originalInfo" class="mt-2 text-[10px] text-gray-400 font-medium text-right font-mono"></div>
+            </div>
+
+            <div id="processedSection" class="relative group" style="display: none;">
+              <div
+                class="absolute top-4 left-4 bg-primary/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full z-10 border border-white/10">
+                Đã xử lý</div>
+              <div
+                class="aspect-video bg-gray-100 rounded-[1.5rem] overflow-hidden flex items-center justify-center border border-primary/20">
+                <img id="processedImage" class="max-w-full max-h-full object-contain" data-zoomable />
+              </div>
+              <div id="processedInfo" class="mt-2 text-[10px] text-primary/60 font-medium text-right font-mono"></div>
+            </div>
+
+            <div class="flex gap-3 mt-8">
+              <button id="downloadBtn"
+                class="flex-1 py-4 bg-gray-900 hover:bg-black text-white rounded-[1rem] font-bold text-sm transition-all flex items-center justify-center gap-2 active:scale-95"
+                style="display: none;">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                TẢI XUỐNG ẢNH SẠCH
+              </button>
+              <button id="resetBtn"
+                class="px-6 py-4 bg-gray-50 text-gray-400 hover:text-gray-900 rounded-[1rem] font-bold text-sm transition-all flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                  </path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="multiPreview" style="display: none;">
+          <div class="flex justify-between items-center mb-6">
+            <span id="progressText" class="text-sm font-bold text-gray-700">Tiến trình: 0/0</span>
+            <button id="downloadAllBtn"
+              class="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold rounded-xl hover:bg-black transition-all flex items-center gap-2"
+              style="display: none;">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              Tải tất cả
+            </button>
+          </div>
+          <div id="imageList" class="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar"></div>
+        </div>
+
+        <div id="previewEmpty"
+          class="aspect-[4/3] rounded-[1.5rem] bg-gray-50 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-gray-100">
+          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+            <svg class="w-6 h-6 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+              </path>
+            </svg>
+          </div>
+          <h4 class="text-sm font-bold text-gray-400">Chưa có kết quả</h4>
+          <p class="text-[10px] text-gray-300 mt-1 uppercase tracking-widest">Tải ảnh ở bước 1 để bắt đầu</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <div id="loadingOverlay"
+    class="fixed inset-0 bg-white/95 backdrop-blur-md z-[60] hidden flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div class="relative w-20 h-20 mb-8">
+        <div class="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
+        <div class="absolute inset-0 border-4 border-primary rounded-full border-t-transparent loading-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3l1.5 5h5l-4 3 1.5 5-4-3-4 3 1.5-5-4-3h5z" />
+          </svg>
+        </div>
+      </div>
+      <p class="text-gray-900 font-bold tracking-tight text-lg" data-i18n="loading.text">Đang phân tích...</p>
+      <p class="text-gray-400 text-sm mt-1">Vui lòng chờ trong giây lát</p>
+    </div>
+  </div>
+
+  
+  <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    mobileMenuBtn.onclick = () => {
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    };
+  </script>
+  <script src="app.js"></script>
+</body>
+
+</html>
